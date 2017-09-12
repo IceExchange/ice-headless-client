@@ -5,14 +5,12 @@ public final class TokenHeadlessClientConfiguration {
     private String server;
     private String token_ethereum_service_url;
     private String token_id_service_url;
-    private String token_exchange_service_url;
     private String seed;
     private String store;
+    private String stage;
     private String username;
     private String name;
-    private String about;
     private String avatar;
-    private Boolean is_public;
     private RedisConfiguration redis;
     private StorageConfiguration storage;
 
@@ -51,6 +49,14 @@ public final class TokenHeadlessClientConfiguration {
         this.store = store;
     }
 
+    public String getStage() {
+        return (stage != null) ? stage : System.getenv("STAGE");
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
+
     public String getUsername() {
         if (this.username == null) {
             String username = System.getenv("TOKEN_APP_USERNAME");
@@ -73,18 +79,6 @@ public final class TokenHeadlessClientConfiguration {
 
     public void setName(String name) {
         this.name = stripQuotes(name);
-    }
-
-    public String getAbout(){
-        if (this.about == null) {
-            String about = System.getenv("TOKEN_APP_ABOUT");
-            this.about = stripQuotes(about);
-        }
-        return this.about;
-    }
-
-    public void setAbout(String about) {
-        this.about = stripQuotes(about);
     }
 
     public String getAvatar() {
@@ -125,41 +119,5 @@ public final class TokenHeadlessClientConfiguration {
 
     public void setToken_id_service_url(String token_id_service_url) {
         this.token_id_service_url = token_id_service_url;
-    }
-
-
-    public String getToken_exchange_service_url() {
-        return token_exchange_service_url;
-    }
-
-    public void setToken_exchange_service_url(String token_exchange_service_url) {
-        this.token_exchange_service_url = token_exchange_service_url;
-    }
-
-    public void setIs_public(Boolean is_public) {
-        this.is_public = is_public;
-    }
-
-    public Boolean getIs_public() {
-        return this.isPublic();
-    }
-
-    public void setPublic(Boolean is_public) {
-        this.is_public = is_public;
-    }
-
-    public Boolean isPublic() {
-        if (is_public != null) {
-            return is_public;
-        }
-        String pub = System.getenv("TOSHI_APP_IS_PUBLIC");
-        if (pub == null) {
-            return false;
-        }
-        pub = pub.toLowerCase();
-        if (pub.equals("") || pub.equals("0") || pub.equals("false") || pub.equals("f")) {
-            return false;
-        }
-        return true;
     }
 }

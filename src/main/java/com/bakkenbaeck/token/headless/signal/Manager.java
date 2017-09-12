@@ -377,6 +377,7 @@ public class Manager {
         accountManager.setPreKeys(signalProtocolStore.getIdentityKeyPair().getPublicKey(), signedPreKeyRecord, oneTimePreKeys);
     }
 
+
     private static List<SignalServiceAttachment> getSignalServiceAttachments(List<String> attachments) throws AttachmentInvalidException {
         List<SignalServiceAttachment> SignalServiceAttachments = null;
         if (attachments != null) {
@@ -598,6 +599,15 @@ public class Manager {
         membersSend.add(recipient);
         sendMessage(messageBuilder, membersSend);
     }
+
+
+    public void sendMessage(String message, List<String> attachments, String recipient)
+            throws EncapsulatedExceptions, AttachmentInvalidException, IOException {
+        List<String> recipients = new ArrayList<>(1);
+        recipients.add(recipient);
+        sendMessage(message, attachments, recipients);
+    }
+
 
     public void sendMessage(String messageText, List<String> attachments,
                             List<String> recipients)

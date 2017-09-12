@@ -12,8 +12,6 @@ import redis.clients.jedis.JedisPubSub;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 class RedisSubscriber extends JedisPubSub {
    // private static Logger logger = Logger.getLogger(RedisSubscriber.class);
@@ -61,17 +59,7 @@ class RedisSubscriber extends JedisPubSub {
 
                 //System.out.println(wrapped.getSofa());
                 try {
-
-                    List<String> recipients = wrapped.getRecipients() != null
-                            ? Arrays.asList(wrapped.getRecipients())
-                            : new ArrayList<>();
-
-                    String recipient = wrapped.getRecipient();
-                    if (recipient != null) {
-                        recipients.add(recipient);
-                    }
-
-                    manager.sendMessage(wrapped.getSofa(), attachments, recipients);
+                    manager.sendMessage(wrapped.getSofa(), attachments, wrapped.getRecipient());
                 } catch (EncapsulatedExceptions encapsulatedExceptions) {
                     encapsulatedExceptions.printStackTrace();
                 } catch (AttachmentInvalidException e) {

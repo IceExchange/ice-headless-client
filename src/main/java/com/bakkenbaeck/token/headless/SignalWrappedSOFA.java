@@ -11,9 +11,6 @@ public class SignalWrappedSOFA {
     private String recipient;
 
     @JsonProperty
-    private String[] recipients;
-
-    @JsonProperty
     private String sender;
 
     public String getSender() {
@@ -34,9 +31,6 @@ public class SignalWrappedSOFA {
 
     public String getRecipient() {
         return recipient;
-    }
-    public String[] getRecipients() {
-        return recipients;
     }
 
     public void setRecipient(String recipient) {
