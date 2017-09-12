@@ -82,6 +82,7 @@ class TokenHeadlessClient {
                     flyway = new Flyway();
                     flyway.setDataSource(pgconfig.getJdbcUrl(), pgconfig.getUsername(), pgconfig.getPassword());
                     flyway.setLocations("db/migration/psql");
+                    flyway.setInitOnMigrate(true);
                     flyway.migrate();
 
                     // -- Postgres
