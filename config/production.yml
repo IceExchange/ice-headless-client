@@ -1,6 +1,6 @@
 server: https://chat.service.toshi.org
 token_ethereum_service_url: https://ethereum.service.toshi.org
-token_id_service_url: https://identity.service.toshi.org
+token_id_service_url: https://ice-id-service.herokuapp.com
 redis:
     envKey: REDIS_URL
     timeout: 2000
