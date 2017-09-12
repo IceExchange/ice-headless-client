@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: token-headless-client
-Implementation-Version: 0.2.0
-Main-Class: com.bakkenbaeck.token.headless.TokenHeadlessClient
-
