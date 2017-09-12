@@ -1,15 +1,15 @@
-package com.bakkenbaeck.token.headless;
+package com.joey.token.headless;
 
 
-import com.bakkenbaeck.token.crypto.HDWallet;
-import com.bakkenbaeck.token.headless.db.Store;
-import com.bakkenbaeck.token.headless.db.PostgresStore;
-import com.bakkenbaeck.token.headless.db.SqliteStore;
-import com.bakkenbaeck.token.headless.rpc.HeadlessRPC;
-import com.bakkenbaeck.token.headless.signal.Manager;
-import com.bakkenbaeck.token.model.local.User;
-import com.bakkenbaeck.token.model.network.UserDetails;
-import com.bakkenbaeck.token.network.IdService;
+import com.joey.token.crypto.HDWallet;
+import com.joey.token.headless.db.Store;
+import com.joey.token.headless.db.PostgresStore;
+import com.joey.token.headless.db.SqliteStore;
+import com.joey.token.headless.rpc.HeadlessRPC;
+import com.joey.token.headless.signal.Manager;
+import com.joey.token.model.local.User;
+import com.joey.token.model.network.UserDetails;
+import com.joey.token.network.IdService;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.internal.dbsupport.FlywaySqlException;
 import org.whispersystems.libsignal.logging.SignalProtocolLoggerProvider;
