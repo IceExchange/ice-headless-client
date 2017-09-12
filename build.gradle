@@ -18,7 +18,7 @@ spotless {
     }
 }
 
-mainClassName = 'com.joey.token.headless.TokenHeadlessClient'
+mainClassName = 'com.bakkenbaeck.token.headless.TokenHeadlessClient'
 
 group = 'com.github.toshiapp'
 version '0.2.0'
@@ -39,12 +39,12 @@ jar {
     manifest {
         attributes 'Implementation-Title': 'token-headless-client',
                 'Implementation-Version': version,
-                'Main-Class': 'com.joey.token.headless.TokenHeadlessClient'
+                'Main-Class': 'com.bakkenbaeck.token.headless.TokenHeadlessClient'
     }
 }
 
 task ToshiHeadlessClientCapsule(type: FatCapsule) {
-    applicationClass 'com.joey.token.headless.TokenHeadlessClient'
+    applicationClass 'com.bakkenbaeck.token.headless.TokenHeadlessClient'
 }
 
 dependencies {
