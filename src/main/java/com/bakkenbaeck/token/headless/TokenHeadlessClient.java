@@ -32,9 +32,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.Security;
 import java.util.concurrent.TimeUnit;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -46,11 +43,7 @@ class TokenHeadlessClient {
     public static void main(String[] args) throws Exception {
 
         // -- config
-        String stage = System.getenv("STAGE");
-        if (stage == null) {
-            stage = "development";
-        }
-        String configPath = "config/" + stage + ".yml";
+        String configPath = "config.yml";
         if( args.length == 1 ) {
             configPath = args[0];
         }
@@ -83,27 +76,16 @@ class TokenHeadlessClient {
             ((SqliteStore)db).executeResourceScript("db/migration/sqlite/V1__Initial_model.sql");
         } else if (storageConfig.getPostgres() != null) {
             PostgresConfiguration pgconfig = storageConfig.getPostgres();
-            List<String> schemas = new ArrayList<String>(Arrays.asList("production", "development"));
-            // for custom schemas
-            if (!schemas.contains(stage)) {
-                schemas.add(stage);
-            }
             while(flyway == null || db == null) {
                 try {
-                    while (schemas.size() > 0) {
-                        String schema = schemas.get(0);
-                        // -- migrations
-                        flyway = new Flyway();
-                        flyway.setDataSource(pgconfig.getJdbcUrl(), pgconfig.getUsername(), pgconfig.getPassword());
-                        flyway.setLocations("db/migration/psql");
-                        flyway.setSchemas(schema);
-                        // flyway.baselineOnMigrate = true;
-                        flyway.migrate();
-                        schemas.remove(0);
-                    }
+                    // -- migrations
+                    flyway = new Flyway();
+                    flyway.setDataSource(pgconfig.getJdbcUrl(), pgconfig.getUsername(), pgconfig.getPassword());
+                    flyway.setLocations("db/migration/psql");
+                    flyway.migrate();
 
                     // -- Postgres
-                    db = new PostgresStore(pgconfig, stage);
+                    db = new PostgresStore(pgconfig);
                 } catch (FlywaySqlException e) {
                     System.err.println("Could not connect to Postgres");
                     System.err.println(e.getCause().getMessage());
@@ -128,7 +110,7 @@ class TokenHeadlessClient {
 
         //final boolean voice = false;
         String settingsPath = config.getStore();
-        String trustStoreName = "toshi-services.store";
+        String trustStoreName = ("production".equals(config.getStage())) ? "token.store" : "heroku.store";
         // TODO: generialize the manager so it can be extended
         Manager m = new Manager(wallet, settingsPath, config.getServer(), trustStoreName, db);
 
@@ -153,13 +135,11 @@ class TokenHeadlessClient {
             userDetails.setUsername(config.getUsername());
             userDetails.setPayment_address(wallet.getPaymentAddress());
             userDetails.setIs_app(true);
-            userDetails.setPublic(config.isPublic());
             if (config.getName() != null) {
                 userDetails.setName(config.getName());
             } else {
                 userDetails.setName(config.getUsername());
             }
-            userDetails.setAbout(config.getAbout());
             String avatar = config.getAvatar();
             Boolean try_upload_avatar = false;
             // if the variable points to a URL
