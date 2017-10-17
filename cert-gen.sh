@@ -43,7 +43,7 @@ while true; do
 
     if [[ $ENV == "dev" ]] || [[ $ENV == "release" ]]
     then
-        HOST="token-chat-service-development.herokuapp.com"
+        HOST="ice-chat-service.herokuapp.com"
         if [[ $ENV == "release" ]]
         then
             HOST="chat.service.tokenbrowser.com"
