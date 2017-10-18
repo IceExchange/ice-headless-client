@@ -46,7 +46,7 @@ while true; do
         HOST="chat-service.ice.exchange"
         if [[ $ENV == "release" ]]
         then
-            HOST="chat.service.tokenbrowser.com"
+            HOST="chat-service.ice.exchange"
         fi
 
         askHost
