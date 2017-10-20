@@ -1,4 +1,4 @@
-server: https://chat.development.service.toshi.org
+server: https://chat-service.ice.exchange
 token_ethereum_service_url: https://ethereum.development.service.toshi.org
 token_id_service_url: https://ice-id-service.herokuapp.com
 redis:
