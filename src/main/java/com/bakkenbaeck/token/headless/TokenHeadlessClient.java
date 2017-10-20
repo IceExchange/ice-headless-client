@@ -70,7 +70,6 @@ class TokenHeadlessClient {
         StorageConfiguration storageConfig = config.getStorage();
 
         if (storageConfig.getSqlite() != null) {
-            System.err.println("HERE IT IS?!");
             SqliteConfiguration sqliteconfig = storageConfig.getSqlite();
             // -- migrations
             // TODO: figure out why this doesn't work!
@@ -83,7 +82,6 @@ class TokenHeadlessClient {
             // XXX: remove this is the flyway migration issue is solved
             ((SqliteStore)db).executeResourceScript("db/migration/sqlite/V1__Initial_model.sql");
         } else if (storageConfig.getPostgres() != null) {
-            System.err.println("OR HERE@?!");
             PostgresConfiguration pgconfig = storageConfig.getPostgres();
             List<String> schemas = new ArrayList<String>(Arrays.asList("production", "development"));
             // for custom schemas
@@ -99,7 +97,6 @@ class TokenHeadlessClient {
                         flyway.setDataSource(pgconfig.getJdbcUrl(), pgconfig.getUsername(), pgconfig.getPassword());
                         flyway.setLocations("db/migration/psql");
                         flyway.setSchemas(schema);
-                        flyway.baseline();
                         flyway.migrate();
                         schemas.remove(0);
                     }
